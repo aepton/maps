@@ -4,7 +4,7 @@
 module.exports = {
   siteMetadata: {
     title: `maps`,
-    siteUrl: `https://www.yourdomain.tld`
+    siteUrl: `https://maps.epton.org`
   },
   plugins: ["gatsby-plugin-postcss"]
 };

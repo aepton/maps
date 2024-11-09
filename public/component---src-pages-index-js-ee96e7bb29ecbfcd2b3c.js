@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkmaps=self.webpackChunkmaps||[]).push([[678],{6558:function(e,t,l){l.r(t),l.d(t,{Head:function(){return s}});var n=l(7294);const a={color:"#232129",padding:96,fontFamily:"-apple-system, Roboto, sans-serif, serif"};t.default=()=>n.createElement("main",{style:a},n.createElement("p",null,"Hello world"));const s=()=>n.createElement("title",null,"Home Page")}}]);
+//# sourceMappingURL=component---src-pages-index-js-ee96e7bb29ecbfcd2b3c.js.map
