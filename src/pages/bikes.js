@@ -21,10 +21,15 @@ const Map = ({ zoom, center, minZoom, maxZoom }) => {
     let mapCenter = center
     let mapZoom = zoom
 
+    const tileOptions = {
+        dark: 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json',
+        light: 'https://basemaps.cartocdn.com/gl/positron-gl-style/style.json',
+        voyager: 'https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json'
+    };
 
     const map = new maplibregl.Map({
       container: mapNode.current,
-      style: 'https://demotiles.maplibre.org/style.json', // style URL
+      style: tileOptions['dark'], // style URL
       center: mapCenter,
       zoom: mapZoom,
       minZoom,
@@ -33,7 +38,44 @@ const Map = ({ zoom, center, minZoom, maxZoom }) => {
     mapRef.current = map
     // window.map = map // todo for easier debugging and querying via console
 
-    map.on("load", () => {})
+    map.on("load", async () => {
+        const response = await fetch('/static/bike_routes.geojson');
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+        }
+
+        const json = await response.json();
+        console.log(json);
+        console.log(json.features);
+        console.log(            {
+            type: 'geojson',
+            data: {
+                type: 'FeatureCollection',
+                features: json.features
+            }
+        });
+        map.addSource(
+            'seattle-bike-routes',
+            {
+                type: 'geojson',
+                data: {
+                    type: 'FeatureCollection',
+                    features: json.features
+                }
+            }
+        );
+
+        map.addLayer({
+            'id': 'route-line',
+            'type': 'line',
+            'source': 'seattle-bike-routes',
+            'paint': {
+                'line-color': '#00ff00',
+                'line-opacity': 0.4,
+                'line-width': 3
+            }
+        });
+    })
 
     return () => {
       map.remove()
@@ -48,9 +90,9 @@ Map.propTypes = {
 }
 
 Map.defaultProps = {
-  center: [0, 0],
-  zoom: 0,
-  minZoom: 0,
+  center: [-122.332069, 47.606209],
+  zoom: 14,
+  minZoom: 2,
 }
 
 const IndexPage = () => {
