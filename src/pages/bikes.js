@@ -39,7 +39,7 @@ const Map = ({ zoom, center, minZoom, maxZoom }) => {
     // window.map = map // todo for easier debugging and querying via console
 
     map.on("load", async () => {
-        const response = await fetch('/static/bike_routes.geojson');
+        const response = await fetch('/static/bike_routes_heights.geojson');
         if (!response.ok) {
             throw new Error(`Response status: ${response.status}`);
         }
@@ -70,7 +70,7 @@ const Map = ({ zoom, center, minZoom, maxZoom }) => {
             'type': 'line',
             'source': 'seattle-bike-routes',
             'paint': {
-                'line-color': '#00ff00',
+                // 'line-color': '#00ff00',
                 'line-opacity': 0.4,
                 'line-width': 3
             }
