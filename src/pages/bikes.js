@@ -70,7 +70,7 @@ const Map = ({ zoom, center, minZoom, maxZoom }) => {
             'type': 'line',
             'source': 'seattle-bike-routes',
             'paint': {
-                // 'line-color': '#00ff00',
+                'line-color': ['get', 'line-color'],
                 'line-opacity': 0.4,
                 'line-width': 3
             }
