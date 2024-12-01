@@ -75,6 +75,14 @@ const Map = ({ zoom, center, minZoom, maxZoom }) => {
                 'line-width': 3
             }
         });
+
+        console.log('geolocating');
+        if ("geolocation" in navigator) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                console.log('got position', position);
+                map.setCenter([position.coords.longitude, position.coords.latitude]);
+            });
+        }
     })
 
     return () => {
